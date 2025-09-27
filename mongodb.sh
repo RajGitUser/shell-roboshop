@@ -11,7 +11,7 @@ LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log" # /var/log/shell-script/mongo-logs.log
 
 
 mkdir -p $LOGS_FOLDER
-echo "script started excecuted at: $(Date)" | tee -a $LOG_FILE
+echo "script started excecuted at: $(date)" | tee -a $LOG_FILE
 
 if [ $USERID -ne 0 ]; then
     echo "ERROR :: Please Run this command in SUDO privilage"
