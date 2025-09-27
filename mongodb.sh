@@ -1,24 +1,24 @@
 #!/bin/bash
 
+USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[34m"
 LOGS_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
-LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
+LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log" # /var/log/shell-script/mongo-logs.log
 
-USERID=$(id -u)
 
 mkdir -p $LOGS_FOLDER
+echo "script started excecuted at: $(Date)" | tee -a $LOG_FILE
 
 if [ $USERID -ne 0 ]; then
-echo "ERROR :: Please Run this command in SUDO privilage"
-exit1
-
+    echo "ERROR :: Please Run this command in SUDO privilage"
+    exit1 # Failure is other than 0
 fi
 
-VALIDATE(){
+VALIDATE(){  # functions recieves inputs through orgs just like shell orgs
     if [ $1 -ne 0 ]; then
         echo -e "$2 ... $R FAILURE $N" | tee -a $LOG_FILE
         exit 1
@@ -30,10 +30,10 @@ VALIDATE(){
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Adding Mongo Repo"
 
-dnf install mongodb-org -y 
+dnf install mongodb-org -y &>>$LOG_FILE
 VALIDATE $? "Installing MongoDB"
 
-systemctl enable mongod
+systemctl enable mongod &>>$LOG_FILE
 VALIDATE $? "Enabiling MongoDB"
 
 systemctl start mongod 
