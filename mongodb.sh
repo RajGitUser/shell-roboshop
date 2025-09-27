@@ -23,7 +23,7 @@ VALIDATE(){  # functions recieves inputs through orgs just like shell orgs
         echo -e "$2 ... $R FAILURE $N" | tee -a $LOG_FILE
         exit 1
     else
-        echo -e "$2 ... $N SUCCESS $N" | tee -a $LOG_FILE
+        echo -e "$2 ... $G SUCCESS $N" | tee -a $LOG_FILE
     fi
 }
 
@@ -38,3 +38,9 @@ VALIDATE $? "Enabiling MongoDB"
 
 systemctl start mongod 
 VALIDATE $? "Start MongoDB"
+
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongo.conf
+VALIDATE $? "Allowing Remote COnnections to DB"
+
+systemctl restart mongod
+VALIDATE $? "Restarting the DB"
