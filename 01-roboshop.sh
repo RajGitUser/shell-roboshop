@@ -11,10 +11,10 @@ do
     
     if [ "$instance" != "frontend" ]; then
         IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query 'Reservations[0].Instances[0].[InstanceId,PrivateIpAddress]' --output text)
-        RECORD_NAME="$instance.$DOMINE_NAME"   #it will be like mongodb.rajkumardaws.space
+        RECORD_NAME="$instance.$DOMIN_NAME"   #it will be like mongodb.rajkumardaws.space
      else
         IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query 'Reservations[0].Instances[0].[InstanceId,PublicIpAddress]' --output text)
-        RECORD_NAME="$DOMINE_NAME"
+        RECORD_NAME="$DOMIN_NAME"
     fi
 
     echo "$instance: $IP"
