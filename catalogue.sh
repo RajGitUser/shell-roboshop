@@ -44,7 +44,7 @@ if [ $? -ne 0 ]; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
     VALIDATE $? "User ID Added" ## Adding the user id
  else
-    echo "User Already Existed $Y SKIPPING $N"
+    echo -e "User Already Existed $Y SKIPPING $N"
 fi
 
 mkdir -p /app 
@@ -54,6 +54,9 @@ curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue
 VALIDATE $? "Copying the catalogue file"
 
 cd /app
+
+rm -rf /app/*
+VALIDATE $? "Removing existing code"
 
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "Unzipping the file"
