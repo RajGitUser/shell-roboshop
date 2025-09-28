@@ -40,12 +40,15 @@ if [ $? -ne 0 ]; then
     echo -e "User ID Already exist $Y SKIPPING $N"
 fi
 
-mkdir /app
+mkdir /app &>>$LOG_FILE
 
 curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>>$LOG_FILE
 VALIDATE $? "Copying shipping file"
 
-cd /app 
+cd /app
+rm -rf /app/*
+VALIDATE $? "Removing existing code"
+
 unzip /tmp/shipping.zip &>>$LOG_FILE
 VALIDATE $? "Unzipping shipping file"
 
