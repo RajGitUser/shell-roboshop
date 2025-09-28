@@ -76,7 +76,7 @@ systemctl start catalogue &>>$LOG_FILE
 VALIDATE $? "Stared the catalogue server"
 
 INDEX=$(mongosh mongodb.rajkumardaws.space --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
-if [ INDEX -ne 0 ]; then
+if [ $INDEX -le 0 ]; then
     cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
     VALIDATE $? "Creating mongo repo"
  else
