@@ -7,7 +7,8 @@ Y="\e[33m"
 N="\e[34m"
 LOGS_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
-$MONGODB_HOST=mongodb.rajkumardaws.space
+MONGODB_HOST="mongodb.rajkumardaws.space"
+SCRIPT_DIR=$PWD
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log" # /var/log/shell-script/mongo-logs.log
 
 
@@ -60,7 +61,7 @@ VALIDATE $? "Unzipping the file"
 npm install &>>$LOG_FILE
 VALIDATE $? "Installing the Dependencies"
 
-cp catalogue.service /etc/systemd/system/catalogue.service
+cp $SCRIPT_DR/catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "Copying the system service file"
 
 systemctl daemon-reload &>>$LOG_FILE
