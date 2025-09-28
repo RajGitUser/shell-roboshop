@@ -75,8 +75,13 @@ VALIDATE $? "Enable the catalogue"
 systemctl start catalogue &>>$LOG_FILE
 VALIDATE $? "Stared the catalogue server"
 
-cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
-VALIDATE $? "Creating mongo repo"
+INDEX=$(mongosh mongodb.rajkumardaws.space --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
+if [ INDEX -ne 0 ]; then
+    cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
+    VALIDATE $? "Creating mongo repo"
+ else
+    echo -e "Catalogue Products Already Exist .. $Y SKIPPING $N"
+fi
 
 dnf install mongodb-mongosh -y &>>$LOG_FILE
 VALIDATE $? "Installing MOngoDB"
