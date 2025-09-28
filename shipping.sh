@@ -69,8 +69,9 @@ if [ $? -ne 0 ]; then
     mysql -h $SQLIP -uroot -pRoboShop@1 < /app/db/schema.sql
     mysql -h $SQLIP -uroot -pRoboShop@1 < /app/db/app-user.sql 
     mysql -h $SQLIP -uroot -pRoboShop@1 < /app/db/master-data.sql
-else
+ else
     echo -e "shipping data is already loaded $Y SKIPPING $N"
+fi
 
 systemctl restart shipping
 VALIDATE $? "Restrting Shipping"
