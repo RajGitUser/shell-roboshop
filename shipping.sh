@@ -73,3 +73,4 @@ else
     echo -e "shipping data is already loaded $Y SKIPPING $N"
 
 systemctl restart shipping
+VALIDATE $? "Restrting Shipping"
