@@ -33,19 +33,19 @@ VALIDATE(){  # functions recieves inputs through orgs just like shell orgs
 cp $SCRIPT_DIR/rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
 VALIDATE $? "Adding rabbitmq repo"
 
-dnf install rabbitmq-server -y
+dnf install rabbitmq-server -y &>>$LOG_FILE
 VALIDATE $? "Installing rabbitmq server"
 
-systemctl enable rabbitmq-server
+systemctl enable rabbitmq-server &>>$LOG_FILE
 VALIDATE $? "Enabling rabbitmq server"
 
-systemctl start rabbitmq-server
+systemctl start rabbitmq-server &>>$LOG_FILE
 VALIDATE $? "Staring rabbitmq server"
 
-rabbitmqctl add_user roboshop roboshop123
+rabbitmqctl add_user roboshop roboshop123 
 VALIDATE $? "Adding root user passwd"
 
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOG_FILE
 VALIDATE $? "Giving the path"
 
 END_TIME=$(date +%s)
