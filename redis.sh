@@ -9,9 +9,8 @@ LOGS_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
 MONGODB_HOST="mongodb.rajkumardaws.space"
 SCRIPT_DIR=$PWD
+START_TIME=$(date +%s)
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log" # /var/log/shell-script/mongo-logs.log
-START_TIME=$(Date +%s)
-
 
 mkdir -p $LOGS_FOLDER
 echo "script started excecuted at: $(date)" | tee -a $LOG_FILE
