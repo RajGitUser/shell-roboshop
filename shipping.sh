@@ -32,8 +32,12 @@ VALIDATE(){  # functions recieves inputs through orgs just like shell orgs
 dnf install maven -y &>>$LOG_FILE
 VALIDATE $? "Installing Maven"
 
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-VALIDATE $? "Adding user and Passwd"
+id roboshop &>>$LOG_FILE
+if [ $? -ne 0 ]; then
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+    VALIDATE $? "Adding user and Passwd"
+else
+    echo -e "User ID Already exist $Y SKIPPING $N"
 
 mkdir /app
 
